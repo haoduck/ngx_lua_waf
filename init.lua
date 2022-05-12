@@ -80,7 +80,7 @@ html=read_rule('returnhtml')
 
 function say_html()
     if Redirect then
-        ngx.header.content_type = "text/html"
+        ngx.header.content_type = "text/html; charset=UTF-8"
         ngx.status = ngx.HTTP_FORBIDDEN
         ngx.say(html)
         ngx.exit(ngx.status)
