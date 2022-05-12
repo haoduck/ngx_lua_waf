@@ -60,10 +60,11 @@ end
 urlrules=read_rule('url')
 argsrules=read_rule('args')
 uarules=read_rule('user-agent')
+whiteuarules=read_rule('white-user-agent')
 wturlrules=read_rule('whiteurl')
 postrules=read_rule('post')
 ckrules=read_rule('cookie')
-
+html=read_rule('returnhtml')
 
 function say_html()
     if Redirect then
@@ -91,7 +92,7 @@ function fileExtCheck(ext)
     ext=string.lower(ext)
     if ext then
         for rule in pairs(items) do
-            if ngx.re.find(ext,rule,"isjo") then
+            if ngx.re.match(ext,rule,"isjo") then
 	        log('POST',ngx.var.request_uri,"-","file attack with ext "..ext)
             say_html()
             end
@@ -191,7 +192,7 @@ function denycc()
         local req,_=limit:get(token)
         if req then
             if req > CCcount then
-                 ngx.exit(503)
+                 ngx.exit(444)
                 return true
             else
                  limit:incr(token,1)
@@ -232,11 +233,24 @@ function whiteip()
         return false
 end
 
+function whiteua()
+    local ua = ngx.var.http_user_agent
+    if ua ~= nil then
+        for _,rule in pairs(whiteuarules) do
+            if rule ~="" and ngxmatch(ua,rule,"isjo") then
+                return true
+            end
+        end
+    end
+    return false
+end
+
+
 function blockip()
      if next(ipBlocklist) ~= nil then
          for _,ip in pairs(ipBlocklist) do
              if getClientIp()==ip then
-                 ngx.exit(403)
+                 ngx.exit(444)
                  return true
              end
          end

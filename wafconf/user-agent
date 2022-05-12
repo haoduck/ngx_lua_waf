@@ -1,1 +1,15 @@
-(HTTrack|harvest|audit|dirbuster|pangolin|nmap|sqln|-scan|hydra|Parser|libwww|BBBike|sqlmap|w3af|owasp|Nikto|fimap|havij|PycURL|zmeu|BabyKrokodil|netsparker|httperf|bench| SF/)
+(WPScan|HTTrack|antSword|harvest|audit|dirbuster|pangolin|nmap|sqln|hydra|Parser|libwww|BBBike|sqlmap|w3af|owasp|Nikto|fimap|havij|zmeu|BabyKrokodil|netsparker|httperf| SF/)
+(?:define|eval|file_get_contents|include|require_once|shell_exec|phpinfo|system|passthru|chr|char|preg_\w+|execute|echo|print|print_r|var_dump|(fp)open|alert|showmodaldialog|file_put_contents|fopen|urldecode|scandir)\(
+\$_(GET|post|cookie|files|session|env|phplib|GLOBALS|SERVER)
+select\s+.+(from|limit)\s+
+(?:(union(.*?)select))
+benchmark\((.*)\,(.*)\)
+(?:from\W+information_schema\W)
+(?:(?:current_)user|database|schema|connection_id)\s*\(
+(extractvalue\(|concat\(0x|user\(\)|substring\(|count\(\*\)|substring\(hex\(|updatexml\()
+(@@version|load_file\(|NAME_CONST\(|exp\(\~|floor\(rand\(|geometrycollection\(|multipoint\(|polygon\(|multipolygon\(|linestring\(|multilinestring\()
+(substr\()
+(ORD\(|MID\(|IFNULL\(|CAST\(|CHAR\))
+(EXISTS\(|SELECT\#|\(SELECT)
+(array_map\(\"ass)
+(bin\(|ascii\(|benchmark\(|concat_ws\(|group_concat\(|strcmp\(|left\(|datadir\(|greatest\()

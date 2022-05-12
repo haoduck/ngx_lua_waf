@@ -1,6 +1,9 @@
-\.(svn|htaccess|bash_history)
-\.(bak|inc|old|mdb|sql|backup|java|class)$
-(vhost|bbs|host|wwwroot|www|site|root|hytop|flashfxp).*\.rar
 (phpmyadmin|jmx-console|jmxinvokerservlet)
 java\.lang
-/(attachments|upimg|images|css|uploadfiles|html|uploads|templets|static|template|data|inc|forumdata|upload|includes|cache|avatar)/(\\w+).(php|jsp)
+\.(svn|git|htaccess|mysql_history|bash_history|DS_Store|idea|user\.ini)
+\.(bak|inc|old|mdb|sql|php~|swp|java|class)$
+^/(vhost|bbs|host|wwwroot|www|site|root|backup|data|ftp|db|admin|website|web).*\.(rar|sql|zip|tar\.gz|tar)$
+/(hack|shell|spy|phpspy)\.php$
+^/(attachments|css|uploadfiles|static|forumdata|cache|avatar)/(\w+).(php|jsp)$
+(?:(union(.*?)select))
+(?:define|eval|file_get_contents|include|require|require_once|shell_exec|phpinfo|system|passthru|preg_\w+|execute|echo|print|print_r|var_dump|(fp)open|alert|showmodaldialog)\(
