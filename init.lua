@@ -21,6 +21,18 @@ function getClientIp()
         end
         return IP
 end
+function ipToDecimal(ckip)
+    local n = 4
+    local decimalNum = 0
+    local pos = 0
+    for s, e in function() return string.find(ckip, '.', pos, true) end do
+        n = n - 1
+        decimalNum = decimalNum + string.sub(ckip, pos, s-1) * (256 ^ n)
+        pos = e + 1
+        if n == 1 then decimalNum = decimalNum + string.sub(ckip, pos, string.len(ckip)) end
+    end
+    return decimalNum
+end
 function write(logfile,msg)
     local fd = io.open(logfile,"ab")
     if fd == nil then return end
@@ -224,13 +236,46 @@ end
 
 function whiteip()
     if next(ipWhitelist) ~= nil then
+        local cIP = getClientIp()
+        local numIP = 0
+        if cIP ~= "unknown" then numIP = tonumber(ipToDecimal(cIP))  end
         for _,ip in pairs(ipWhitelist) do
-            if getClientIp()==ip then
+            local s, e = string.find(ip, '-', 0, true)
+            if s == nil and cIP == ip then
                 return true
+            elseif s ~= nil then
+                sIP = tonumber(ipToDecimal(string.sub(ip, 0, s - 1)))
+                eIP = tonumber(ipToDecimal(string.sub(ip, e + 1, string.len(ip))))
+                if numIP >= sIP and numIP <= eIP then
+                   return true
+                end
             end
         end
     end
-        return false
+    return false
+end
+
+function blockip()
+    if next(ipBlocklist) ~= nil then
+        local cIP = getClientIp()
+        local numIP = 0
+        if cIP ~= "unknown" then numIP = tonumber(ipToDecimal(cIP)) end
+        for _,ip in pairs(ipBlocklist) do
+            local s, e = string.find(ip, '-', 0, true)
+            if s == nil and cIP == ip then
+                ngx.exit(444)
+                return true
+            elseif s ~= nil then
+                sIP = tonumber(ipToDecimal(string.sub(ip, 0, s - 1)))
+                eIP = tonumber(ipToDecimal(string.sub(ip, e + 1, string.len(ip))))
+                if numIP >= sIP and numIP <= eIP then
+                    ngx.exit(444)
+                    return true
+                end
+            end
+        end
+    end
+    return false
 end
 
 function whiteua()
