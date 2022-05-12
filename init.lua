@@ -1,6 +1,6 @@
 require 'config'
 local match = string.match
-local ngxmatch=ngx.re.match
+local ngxmatch=ngx.re.find
 local unescape=ngx.unescape_uri
 local get_headers = ngx.req.get_headers
 local optionIsOn = function (options) return options == "on" and true or false end
@@ -91,7 +91,7 @@ function fileExtCheck(ext)
     ext=string.lower(ext)
     if ext then
         for rule in pairs(items) do
-            if ngx.re.match(ext,rule,"isjo") then
+            if ngx.re.find(ext,rule,"isjo") then
 	        log('POST',ngx.var.request_uri,"-","file attack with ext "..ext)
             say_html()
             end
