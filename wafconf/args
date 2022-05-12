@@ -26,3 +26,4 @@ group\s+by.+\(
 (array_map\(\"ass)
 '$
 \s+(or|xor|and)\s+.*(=|<|>|'|\")
+(Acunetix-Aspect|Acunetix-Aspect-Password|Acunetix-Aspect-Queries|X-WIPP|X-RequestManager-Memo|X-Request-Memo|X-Scan-Memo)

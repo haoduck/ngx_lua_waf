@@ -17,3 +17,4 @@ xwork.MethodAccessor
 xwork\.MethodAccessor
 (gopher|doc|php|glob|file|phar|zlib|ftp|ldap|dict|ogg|data)\:\/
 java\.lang
+(CustomCookie|acunetixCookie)
